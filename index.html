@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Операция: Вита ❤️</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap');
+:root{--rose:#d95c7e;--dark:#452633;--cream:#fffaf7;--line:#edd5dc;--green:#79a87c}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:Manrope,sans-serif;color:var(--dark)}
+body{background:#fff8f7;overflow-x:hidden}
+.bg{position:fixed;inset:0;z-index:-2;background:radial-gradient(circle at 10% 15%,#ffdbe7,transparent 28%),radial-gradient(circle at 90% 75%,#f8dfd1,transparent 30%),linear-gradient(145deg,#fffaf7,#fff0f5)}
+.page{min-height:100svh;display:flex;align-items:center;justify-content:center;padding:24px;position:relative}
+.card{width:min(570px,100%);padding:32px 22px;border-radius:32px;background:rgba(255,255,255,.72);border:1px solid #fff;box-shadow:0 22px 75px rgba(90,35,55,.12);backdrop-filter:blur(15px);text-align:center}
+.hidden{display:none!important}.fade{animation:up .55s ease}
+@keyframes up{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+.serif{font-family:"Cormorant Garamond",serif}.kicker{font-size:11px;letter-spacing:3px;text-transform:uppercase;opacity:.5}
+h1{font:700 clamp(48px,13vw,76px)/.85 "Cormorant Garamond",serif;margin:18px 0 15px}
+h2{font:600 clamp(34px,9vw,52px)/.95 "Cormorant Garamond",serif;margin:10px 0 14px}
+p{line-height:1.7;font-size:15.5px}.heart{font-size:42px;animation:pulse 1.7s infinite}@keyframes pulse{50%{transform:scale(1.12)}}
+button{font:600 15px Manrope;border:0;cursor:pointer}.main{background:var(--rose);color:#fff;padding:15px 27px;border-radius:99px;box-shadow:0 12px 28px #d95c7e40}.light{background:#fff;color:var(--dark);padding:14px 23px;border-radius:99px}.row{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:22px}
+.small{font-size:12px;opacity:.5}
+
+/* envelope */
+.envwrap{width:min(390px,85vw);height:255px;margin:4px auto 25px;position:relative;filter:drop-shadow(0 20px 30px #6b30451f)}
+.env{position:absolute;inset:25px 0 0;background:#fff;border-radius:7px}.env:after{content:"";position:absolute;inset:0;background:#f8dce4;clip-path:polygon(0 0,50% 57%,100% 0,100% 100%,0 100%)}
+.flap{position:absolute;left:0;right:0;top:25px;height:165px;background:#f2cbd6;clip-path:polygon(0 0,50% 62%,100% 0);transform-origin:top;transition:1s;z-index:3}
+.seal{position:absolute;z-index:5;left:50%;top:113px;transform:translateX(-50%);width:56px;height:56px;border-radius:50%;background:var(--rose);color:white;display:grid;place-items:center;font-size:24px;transition:.6s}
+.letter{position:absolute;z-index:2;left:8%;right:8%;top:55px;height:155px;background:#fffdfb;padding:27px 10px;font:25px "Cormorant Garamond",serif;transition:1s}
+.open .flap{transform:rotateX(180deg);z-index:1}.open .letter{transform:translateY(-100px);z-index:5}.open .seal{opacity:0}
+
+/* progress */
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;opacity:.5}.bar{height:5px;background:#f0dce1;border-radius:10px;overflow:hidden;flex:1;margin-left:12px}.bar i{display:block;height:100%;background:var(--rose);transition:.5s}
+
+/* games */
+.heartfield{height:300px;border-radius:24px;background:linear-gradient(145deg,#fff7fa,#fff);border:1px solid var(--line);position:relative;overflow:hidden;margin-top:20px}
+.target{position:absolute;font-size:31px;cursor:pointer;user-select:none;animation:bob 1.5s ease-in-out infinite}.target:hover{transform:scale(1.25)}@keyframes bob{50%{margin-top:-5px}}
+.gameinfo{font-weight:700;margin-top:13px}.timer{color:var(--rose)}
+
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;max-width:370px;margin:20px auto}
+.tile{aspect-ratio:1;border-radius:15px;background:#f5dbe2;font-size:28px;color:transparent;transition:.2s;box-shadow:0 5px 12px #6b304512}
+.tile.show,.tile.done{background:#fff;color:initial}.tile.done{outline:2px solid #e8a8b9}
+.riddle{background:#fff;border:1px solid var(--line);padding:20px;border-radius:20px;margin-top:20px;text-align:left}
+.answer{display:grid;gap:9px;margin-top:14px}.answer button{padding:14px;border-radius:14px;background:#fff;border:1px solid var(--line);text-align:left;color:var(--dark)}
+.answer button.correct{background:#e9f5ea;border-color:#9bc29e}.answer button.wrong{animation:shake .3s}@keyframes shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.code{display:flex;justify-content:center;gap:9px;margin:20px 0}.code span{width:50px;height:60px;border-radius:15px;background:#fff;border:1px solid var(--line);display:grid;place-items:center;font:700 30px "Cormorant Garamond",serif}
+.choice{display:grid;gap:10px;margin-top:20px}.choice button{padding:16px;text-align:left;border-radius:17px;background:#fff;border:1px solid var(--line);color:var(--dark)}
+.choice button.sel{outline:2px solid var(--rose);background:#fff4f7}
+.note{background:#fffdf9;border-radius:22px;padding:25px;text-align:left;margin-top:22px;box-shadow:0 9px 25px #5c304012}.note p{font:500 23px/1.45 "Cormorant Garamond",serif}.sign{text-align:right;color:var(--rose);font-weight:700}
+.confetti{position:fixed;inset:0;pointer-events:none;z-index:99}.confetti i{position:absolute;top:-30px;animation:fall 4s linear forwards}@keyframes fall{to{transform:translateY(110vh) rotate(600deg);opacity:0}}
+</style>
+</head>
+<body><div class="bg"></div><main id="app">
+
+<section class="page" id="s0"><div class="card fade">
+<div class="kicker">секретное дело №01</div>
+<div class="envwrap" id="env" onclick="openEnv()"><div class="env"></div><div class="letter">Для Виты<br><span style="font-size:16px">от Кости ❤️</span></div><div class="flap"></div><div class="seal">♥</div></div>
+<div id="intro"><h1>Вита</h1><p>Костя хотел просто позвать тебя провести время вместе.<br>Но потом подумал: <b>«Слишком скучно».</b></p><p>Поэтому приглашение придётся заслужить 😌</p><button class="main" onclick="openEnv()">Начать расследование</button></div>
+</div></section>
+
+<section class="page hidden" id="s1"><div class="card fade">
+<div class="top"><span>Дело 1 / 5</span><div class="bar"><i style="width:20%"></i></div></div>
+<div class="heart">🕵️‍♀️</div><h2>Найди 7 сердечек</h2>
+<p>Они разбежались по комнате, пока Костя готовил сюрприз. Нажимай на них, когда увидишь.</p>
+<div class="heartfield" id="field"></div><div class="gameinfo"><span id="found">0</span> / 7 <span class="timer" id="timer"></span></div>
+<p id="gameMsg" class="small"></p>
+</div></section>
+
+<section class="page hidden" id="s2"><div class="card fade">
+<div class="top"><span>Дело 2 / 5</span><div class="bar"><i style="width:40%"></i></div></div>
+<div class="heart">🧠</div><h2>Проверка памяти</h2>
+<p>Запомни, где находятся пары. После открытия карточки исчезнут.</p>
+<div class="grid" id="grid"></div><p id="memoryMsg" class="small">Найди все 4 пары.</p>
+</div></section>
+
+<section class="page hidden" id="s3"><div class="card fade">
+<div class="top"><span>Дело 3 / 5</span><div class="bar"><i style="width:60%"></i></div></div>
+<div class="heart">🔐</div><h2>Код от сейфа</h2>
+<p>Костя оставил загадку. Какое число нужно ввести?</p>
+<div class="riddle"><b>У Кости было 3 яблока.<br>Вита забрала 1.<br>Сколько яблок осталось у Кости?</b></div>
+<div class="code"><span id="digit">?</span></div>
+<div class="row">
+<button class="light" onclick="tryCode(1)">1</button><button class="light" onclick="tryCode(2)">2</button><button class="light" onclick="tryCode(3)">3</button>
+</div><p id="codeMsg" class="small"></p>
+</div></section>
+
+<section class="page hidden" id="s4"><div class="card fade">
+<div class="top"><span>Дело 4 / 5</span><div class="bar"><i style="width:80%"></i></div></div>
+<div class="heart">😏</div><h2>Очень важный вопрос</h2>
+<p>Костя пытается понять, что именно делает свидание хорошим.</p>
+<div class="choice">
+<button onclick="chooseMood(this,'Когда рядом человек, с которым можно смеяться над всякой ерундой')">😂 Когда рядом человек, с которым можно смеяться над всякой ерундой</button>
+<button onclick="chooseMood(this,'Когда можно никуда не торопиться')">🌿 Когда можно никуда не торопиться</button>
+<button onclick="chooseMood(this,'Когда есть вкусная еда')">🍕 Когда есть вкусная еда</button>
+<button onclick="chooseMood(this,'Когда рядом ты ❤️')">❤️ Когда рядом ты</button>
+</div>
+<p id="moodMsg" class="small"></p>
+</div></section>
+
+<section class="page hidden" id="s5"><div class="card fade">
+<div class="top"><span>Дело 5 / 5</span><div class="bar"><i style="width:100%"></i></div></div>
+<div class="heart">🎁</div><h2>Финальная сборка</h2>
+<p>Последний шаг. Выбери, какой секретный план открыть.</p>
+<div class="choice">
+<button onclick="finalPlan(this,'🌿 Прогулка в лесу или парке')">🌿 Прогулка в лесу или парке</button>
+<button onclick="finalPlan(this,'🍳 Готовим что-нибудь вместе')">🍳 Готовим что-нибудь вместе</button>
+<button onclick="finalPlan(this,'🎬 Кино')">🎬 Кино</button>
+<button onclick="finalPlan(this,'🍦 Те самые 33 пингвина')">🍦 Те самые 33 пингвина</button>
+<button onclick="finalPlan(this,'✨ Твой вариант — и Костя согласен')">✨ Твой вариант — и Костя согласен</button>
+</div>
+</div></section>
+
+<section class="page hidden" id="final"><div class="card fade">
+<div class="heart">💌</div><div class="kicker">операция завершена</div>
+<h2>Сюрприз найден.</h2>
+<p id="result"></p>
+<div class="note">
+<p>Ты всегда заслуживаешь самого лучшего и я искренне хочу, чтобы твоя милая улыбка никогда не угасала.</p>
+<p>Помни, что я всегда тебя люблю, мой котеночек) ❤️</p>
+<div class="sign">Твой Костя</div>
+</div>
+<p style="margin-top:22px">А теперь самое главное...</p>
+<button class="main" onclick="celebrate()">Идём на свидание ❤️</button>
+</div></section>
+
+<section class="page hidden" id="end"><div class="card fade">
+<div class="heart">🥰</div><div class="kicker">секретное послание</div><h2>Тогда решено.</h2>
+<p>Дата, время и детали — договоримся вместе.<br>Главное, что этот вечер будет нашим.</p>
+<div style="font:600 28px 'Cormorant Garamond',serif;margin:25px 0">Вита + Костя</div>
+<p class="small">P.S. Да, ты потратила на это несколько минут.<br>Нет, Костя ни капельки не жалеет. 😌</p>
+</div></section>
+</main>
+
+<script>
+const WEBHOOK_URL = "ВСТАВЬ_СЮДА_URL_GOOGLE_APPS_SCRIPT";
+async function sendResult(){
+  const date = "";
+  const payload = {
+    secret:"vita-quest-2026",
+    name:"Вита",
+    chosenPlan: window.finalChosenPlan || "не выбран",
+    mood: window.chosenMood || "не выбран",
+    completed:true
+  };
+  if(!WEBHOOK_URL.startsWith("http")) return;
+  try{
+    await fetch(WEBHOOK_URL,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(payload)});
+  }catch(e){}
+}
+const S=id=>document.getElementById(id);
+function go(id){document.querySelectorAll('.page').forEach(x=>x.classList.add('hidden'));S(id).classList.remove('hidden');scrollTo(0,0)}
+function openEnv(){S('env').classList.add('open');setTimeout(()=>go('s1'),1100);startHearts()}
+
+/* game 1 */
+let found=0;
+function startHearts(){
+ const f=S('field');f.innerHTML='';
+ const positions=[[10,15],[72,18],[43,45],[82,62],[18,72],[54,78],[88,35]];
+ positions.forEach((pos,i)=>{let h=document.createElement('span');h.className='target';h.textContent=i%2?'♡':'♥';h.style.left=pos[0]+'%';h.style.top=pos[1]+'%';h.onclick=()=>{if(h.dataset.hit)return;h.dataset.hit=1;h.style.opacity=0;found++;S('found').textContent=found;if(found===7){S('gameMsg').textContent='Все нашла! Костя подозревал, что ты справишься ❤️';setTimeout(()=>{initMemory();go('s2')},900)}};f.appendChild(h)})
+}
+
+/* game 2 */
+const emojis=['🌿','🍦','🎬','🍳','🌿','🍦','🎬','🍳'];let first=null,lock=false,matched=0;
+function initMemory(){
+ const g=S('grid');g.innerHTML='';matched=0;first=null;lock=false;
+ [...emojis].sort(()=>Math.random()-.5).forEach((e,i)=>{let b=document.createElement('button');b.className='tile';b.textContent=e;b.onclick=()=>flip(b,e);g.appendChild(b)})
+}
+function flip(b,e){if(lock||b.classList.contains('done')||b===first)return;b.classList.add('show');if(!first){first=b;return}if(first.textContent===e){first.classList.add('done');b.classList.add('done');first=null;matched++;if(matched===4){S('memoryMsg').textContent='Идеально. Память работает — можно переходить к секретам 😏';setTimeout(()=>go('s3'),900)}}else{lock=true;setTimeout(()=>{b.classList.remove('show');first.classList.remove('show');first=null;lock=false},650)}}
+
+/* game 3 */
+function tryCode(n){S('digit').textContent=n;if(n===2){S('codeMsg').textContent='Код верный! Хотя Костя специально сделал эту загадку подозрительно простой 😄';setTimeout(()=>go('s4'),900)}else S('codeMsg').textContent='Мимо 😌 Попробуй ещё раз.'}
+
+/* game 4 */
+function chooseMood(el,v){document.querySelectorAll('.choice button').forEach(x=>x.classList.remove('sel'));el.classList.add('sel');window.chosenMood=v;S('moodMsg').textContent='Костя записал: «'+v+'». Хороший ответ ❤️';setTimeout(()=>go('s5'),1100)}
+
+/* final */
+function finalPlan(el,v){document.querySelectorAll('.choice button').forEach(x=>x.classList.remove('sel'));el.classList.add('sel');window.finalChosenPlan=v;S('result').textContent='Твой секретный выбор: '+v+'. Похоже, Костя именно это и хотел услышать. Теперь осталось только встретиться ❤️';sendResult();setTimeout(()=>go('final'),1100)}
+function celebrate(){confetti();setTimeout(()=>go('end'),700)}
+function confetti(){let c=document.createElement('div');c.className='confetti';['♥','♡','✦','✿','🌸'].forEach((z)=>{for(let i=0;i<10;i++){let x=document.createElement('i');x.textContent=z;x.style.left=Math.random()*100+'%';x.style.animationDelay=Math.random()*1.2+'s';x.style.fontSize=12+Math.random()*20+'px';c.appendChild(x)}}document.body.appendChild(c);setTimeout(()=>c.remove(),4300)}
+</script>
+</body></html>

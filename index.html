@@ -132,21 +132,8 @@ button{font:600 15px Manrope;border:0;cursor:pointer}.main{background:var(--rose
 </main>
 
 <script>
-const WEBHOOK_URL = "ВСТАВЬ_СЮДА_URL_GOOGLE_APPS_SCRIPT";
-async function sendResult(){
-  const date = "";
-  const payload = {
-    secret:"vita-quest-2026",
-    name:"Вита",
-    chosenPlan: window.finalChosenPlan || "не выбран",
-    mood: window.chosenMood || "не выбран",
-    completed:true
-  };
-  if(!WEBHOOK_URL.startsWith("http")) return;
-  try{
-    await fetch(WEBHOOK_URL,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(payload)});
-  }catch(e){}
-}
+
+
 const S=id=>document.getElementById(id);
 function go(id){document.querySelectorAll('.page').forEach(x=>x.classList.add('hidden'));S(id).classList.remove('hidden');scrollTo(0,0)}
 function openEnv(){S('env').classList.add('open');setTimeout(()=>go('s1'),1100);startHearts()}
@@ -174,8 +161,24 @@ function tryCode(n){S('digit').textContent=n;if(n===2){S('codeMsg').textContent=
 function chooseMood(el,v){document.querySelectorAll('.choice button').forEach(x=>x.classList.remove('sel'));el.classList.add('sel');window.chosenMood=v;S('moodMsg').textContent='Костя записал: «'+v+'». Хороший ответ ❤️';setTimeout(()=>go('s5'),1100)}
 
 /* final */
-function finalPlan(el,v){document.querySelectorAll('.choice button').forEach(x=>x.classList.remove('sel'));el.classList.add('sel');window.finalChosenPlan=v;S('result').textContent='Твой секретный выбор: '+v+'. Похоже, Костя именно это и хотел услышать. Теперь осталось только встретиться ❤️';sendResult();setTimeout(()=>go('final'),1100)}
+function finalPlan(el,v){document.querySelectorAll('.choice button').forEach(x=>x.classList.remove('sel'));el.classList.add('sel');window.finalChosenPlan=v;S('result').textContent='Твой секретный выбор: '+v+'. Похоже, Костя именно это и хотел услышать. Теперь осталось только встретиться ❤️';setTimeout(()=>go('final'),1100)}
 function celebrate(){confetti();setTimeout(()=>go('end'),700)}
-function confetti(){let c=document.createElement('div');c.className='confetti';['♥','♡','✦','✿','🌸'].forEach((z)=>{for(let i=0;i<10;i++){let x=document.createElement('i');x.textContent=z;x.style.left=Math.random()*100+'%';x.style.animationDelay=Math.random()*1.2+'s';x.style.fontSize=12+Math.random()*20+'px';c.appendChild(x)}});document.body.appendChild(c);setTimeout(()=>c.remove(),4300)}
+function confetti(){
+  const c=document.createElement('div');
+  c.className='confetti';
+  ['♥','♡','✦','✿','🌸'].forEach((z)=>{
+    for(let i=0;i<10;i++){
+      const x=document.createElement('i');
+      x.textContent=z;
+      x.style.left=Math.random()*100+'%';
+      x.style.animationDelay=Math.random()*1.2+'s';
+      x.style.fontSize=12+Math.random()*20+'px';
+      c.appendChild(x);
+    }
+  });
+  document.body.appendChild(c);
+  setTimeout(()=>c.remove(),4300);
+}
+
 </script>
 </body></html>
